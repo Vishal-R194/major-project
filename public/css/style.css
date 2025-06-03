@@ -12,7 +12,26 @@ body{
 .navbar{
     height: 5rem;
     background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1030;
 }
+
+.active-filter {
+  border-bottom: 2px solid black;
+  opacity: 1 !important;
+  font-weight: bold;
+  transform: scale(1.1);
+}
+
+
+.navbar-collapse {
+  background-color: white !important;
+  padding: 1rem; /* Optional: adds some spacing */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
+
 
 .fa-compass{
     color: #fe424d;

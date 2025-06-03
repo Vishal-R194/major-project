@@ -3,10 +3,44 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken});
 
+
+// module.exports.index = async (req, res) => {
+//     const { city } = req.query;
+//     let allListings;
+
+//     if (city) {
+//         allListings = await Listing.find({
+//             $or: [
+//                 { location: { $regex: city, $options: "i" } },
+//                 { country: { $regex: city, $options: "i" } }
+//             ]
+//         });
+//     } else {
+//         allListings = await Listing.find({});
+//     }
+//     res.render("listings/index.ejs", { allListings, city });
+// };
+
 module.exports.index = async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("listings/index.ejs", {allListings});
+    const { city, category } = req.query;
+    let query = {};
+
+    if (city) {
+        query.$or = [
+            { location: { $regex: city, $options: "i" } },
+            { country: { $regex: city, $options: "i" } }
+        ];
+    }
+
+    if (category) {
+        query.category = category;
+    }
+
+    const allListings = await Listing.find(query);
+    res.render("listings/index.ejs", { allListings, city, category });
 };
+
+
 
 module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs");
@@ -22,38 +56,57 @@ module.exports.showListing = async (req, res) => {
     res.render("listings/show.ejs", { listing });
 };
 
+
+
 module.exports.createListing = async (req, res, next) => {
-    let response = await geocodingClient.forwardGeocode({
-        query: req.body.listing.location,
-        limit: 1,
-    })
-    .send();
+    try {
+        const response = await geocodingClient.forwardGeocode({
+            query: req.body.listing.location,
+            limit: 1,
+        }).send();
 
-    let url = req.file.path;
-    let filename = req.file.filename;
-     const newListing = new Listing(req.body.listing);
-     newListing.owner = req.user._id;
-     newListing.image = {url, filename};
+        const newListing = new Listing(req.body.listing);
+        newListing.owner = req.user._id;
 
-     newListing.geometry = response.body.features[0].geometry;
+        // ✅ Only assign image if file was uploaded
+        if (req.file) {
+            newListing.image = {
+                url: req.file.path,
+                filename: req.file.filename
+            };
+        }
 
-     await newListing.save();
-     req.flash("success", "New listing created!");
-     res.redirect("/listings");
+        // ✅ Safely assign geometry if available
+        const geoData = response.body.features[0];
+        newListing.geometry = geoData ? geoData.geometry : null;
+
+        await newListing.save();
+        req.flash("success", "New listing created!");
+        res.redirect("/listings");
+    } catch (err) {
+        next(err);
+    }
 };
+
 
 module.exports.renderEditForm = async (req, res) => {
-    let {id} = req.params;
+    let { id } = req.params;
     const listing = await Listing.findById(id);
-    if(!listing) {
+    if (!listing) {
         req.flash("error", "Listing does not exist!");
-        res.redirect("/listings");
-    };
+        return res.redirect("/listings");
+    }
 
-    let originalImageUrl = listing.image.url;
-    originalImageUrl = originalImageUrl.replace("/upload", "/upload/h_200,w_250");
+    let originalImageUrl = "";
+
+    // ✅ Only try to modify the URL if it exists
+    if (listing.image && listing.image.url) {
+        originalImageUrl = listing.image.url.replace("/upload", "/upload/h_200,w_250");
+    }
+
     res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
+
 
 module.exports.updateListing = async (req, res) => {
     let {id} = req.params;

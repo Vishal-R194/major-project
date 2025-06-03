@@ -6,7 +6,7 @@
       flex-wrap: wrap;
       align-items: center;
     }
-
+  
     .filter {
       text-align: center;
       margin-right: 2rem;
@@ -36,48 +36,97 @@
       align-items: center;
     }
   </style>
-     
-    <div id="filters">
-      <div class="filter">
-        <div><i class="fa-solid fa-fire"></i></div>
-        <p>Trending</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-bed"></i></div>
-        <p>Rooms</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-mountain-city"></i></div>
-        <p>Iconic Cities</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-mountain"></i></div>
-        <p>Mountains</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-chess-rook"></i></div>
-        <p>Castles</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-person-swimming"></i></div>
-        <p>Amazing Pools</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-campground"></i></div>
-        <p>Camping</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-cow"></i></div>
-        <p>Farms</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-snowflake"></i></div>
-        <p>Arctic</p>
-      </div>
-      <div class="filter">
-        <div><i class="fa-solid fa-ship"></i></div>
-        <p>Boats</p>
-      </div>
+   <div id="filters">
+<div class="filter <%= category === 'trending' ? 'active-filter' : '' %>">
+  <div>
+    <a href="/listings?category=trending<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
+      <i class="fa-solid fa-fire"></i>
+    </a>
+  </div>
+  <p>Trending</p>
+</div>
+
+<div class="filter <%= category === 'rooms' ? 'active-filter' : '' %>">
+  <div>
+    <a href="/listings?category=rooms<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
+      <i class="fa-solid fa-bed"></i>
+    </a>
+  </div>
+  <p>Rooms</p>
+</div>
+
+<div class="filter <%= category === 'iconic-cities' ? 'active-filter' : '' %>">
+  <div>
+    <a href="/listings?category=iconic-cities<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
+      <i class="fa-solid fa-mountain-city"></i>
+    </a>
+  </div>
+  <p>Iconic Cities</p>
+</div>
+
+<div class="filter <%= category === 'mountains' ? 'active-filter' : '' %>">
+  <div>
+    <a href="/listings?category=mountains<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
+      <i class="fa-solid fa-mountain"></i>
+    </a>
+  </div>
+  <p>Mountains</p>
+</div>
+
+<div class="filter <%= category === 'castles' ? 'active-filter' : '' %>">
+  <div>
+    <a href="/listings?category=castles<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
+      <i class="fa-solid fa-chess-rook"></i>
+    </a>
+  </div>
+  <p>Castles</p>
+</div>
+
+<div class="filter <%= category === 'iconic-amazing-pools' ? 'active-filter' : '' %>">
+  <div>
+    <a href="/listings?category=iconic-amazing-pools<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
+      <i class="fa-solid fa-person-swimming"></i>
+    </a>
+  </div>
+  <p>Amazing Pools</p>
+</div>
+
+<div class="filter <%= category === 'camping' ? 'active-filter' : '' %>">
+  <div>
+    <a href="/listings?category=camping<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
+      <i class="fa-solid fa-campground"></i>
+    </a>
+  </div>
+  <p>Camping</p>
+</div>
+
+<div class="filter <%= category === 'farms' ? 'active-filter' : '' %>">
+  <div>
+    <a href="/listings?category=farms<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
+      <i class="fa-solid fa-cow"></i>
+    </a>
+  </div>
+  <p>Farms</p>
+</div>
+
+<div class="filter <%= category === 'arctic' ? 'active-filter' : '' %>">
+  <div>
+    <a href="/listings?category=arctic<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
+      <i class="fa-solid fa-snowflake"></i>
+    </a>
+  </div>
+  <p>Arctic</p>
+</div>
+
+<div class="filter <%= category === 'boats' ? 'active-filter' : '' %>">
+  <div>
+    <a href="/listings?category=boats<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
+      <i class="fa-solid fa-ship"></i>
+    </a>
+  </div>
+  <p>Boats</p>
+</div>
+
       <div class="tax-toggle">
         <div class="form-check-reverse form-switch">
           <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
