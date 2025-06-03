@@ -47,7 +47,25 @@
           <input name="listing[location]" value="<%= listing.location %>" type="text" class="form-control" required>
           <div class="invalid-feedback">Location should be valid</div>
        </div>
-       
+
+       <div class="mb-3">
+         <label for="category" class="form-label">Category</label>
+           <select name="listing[category]" class="form-control" required>
+           <option disabled>Select a category</option>
+           <option value="trending" <%= listing.category === 'trending' ? 'selected' : '' %>>Trending</option>
+           <option value="rooms" <%= listing.category === 'rooms' ? 'selected' : '' %>>Rooms</option>
+           <option value="iconic-cities" <%= listing.category === 'iconic-cities' ? 'selected' : '' %>>Iconic Cities</option>
+           <option value="mountains" <%= listing.category === 'mountains' ? 'selected' : '' %>>Mountains</option>
+           <option value="castles" <%= listing.category === 'castles' ? 'selected' : '' %>>Castles</option>
+           <option value="amazing-pools" <%= listing.category === 'amazing-pools' ? 'selected' : '' %>>Amazing Pools</option>
+           <option value="camping" <%= listing.category === 'camping' ? 'selected' : '' %>>Camping</option>
+           <option value="farms" <%= listing.category === 'farms' ? 'selected' : '' %>>Farms</option>
+           <option value="arctic" <%= listing.category === 'arctic' ? 'selected' : '' %>>Arctic</option>
+           <option value="boats" <%= listing.category === 'boats' ? 'selected' : '' %>>Boats</option>
+         </select>
+      <div class="invalid-feedback">Please select a category</div>
+    </div>
+
        <button class="btn btn-dark edit-btn mt-3">Edit</button>
     </form>
        </div>

@@ -51,12 +51,12 @@ module.exports.createListing = async (req, res, next) => {
         const newListing = new Listing(req.body.listing);
         newListing.owner = req.user._id;
 
-        // ✅ Only assign image if file was uploaded
-        if (req.file) {
-            newListing.image = {
-                url: req.file.path,
-                filename: req.file.filename
-            };
+        const imageFile = req.files?.["listing[image]"]?.[0];
+         if (imageFile) {
+          newListing.image = {
+          url: imageFile.path,
+          filename: imageFile.filename
+         };
         }
 
         // ✅ Safely assign geometry if available

@@ -82,9 +82,9 @@
   <p>Castles</p>
 </div>
 
-<div class="filter <%= category === 'iconic-amazing-pools' ? 'active-filter' : '' %>">
+<div class="filter <%= category === 'amazing-pools' ? 'active-filter' : '' %>">
   <div>
-    <a href="/listings?category=iconic-amazing-pools<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
+    <a href="/listings?category=amazing-pools<%= city ? `&city=${encodeURIComponent(city)}` : '' %>">
       <i class="fa-solid fa-person-swimming"></i>
     </a>
   </div>
@@ -138,8 +138,7 @@
   <% for(let listing of allListings){ %>
     <a href="/listings/<%=listing._id%>" class="listing-link">
      <div class="card col listing-card">
-       
-      <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_img" style="height: 20rem">
+        <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_img" style="height: 20rem">
        <div class="card-img-overlay"></div>
         <div class="card-body">
           <p class="card-text">

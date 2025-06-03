@@ -18,7 +18,7 @@ const listingSchema = new Schema({
     country: String,
     category: {
     type: String,
-    enum: ['trending', 'rooms', 'iconic-cities', 'mountains', 'castles', 'pools', 'camping', 'farms', 'arctic', 'boats'],
+    enum: ['trending', 'rooms', 'iconic-cities', 'mountains', 'castles', 'amazing-pools', 'camping', 'farms', 'arctic', 'boats'],
     required: true
   },
     reviews: [
